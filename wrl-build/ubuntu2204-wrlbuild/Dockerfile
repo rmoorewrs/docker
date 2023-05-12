@@ -1,0 +1,38 @@
+FROM ubuntu:22.04
+
+MAINTAINER Changqing Li <changqing.li@windriver.com>
+
+RUN \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" -qy install --no-install-recommends \
+    texi2html chrpath \
+    diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev \
+    texinfo gawk gcc gcc-multilib help2man g++ git-core bash cpio \
+    python3 python3-pip python3-pexpect debianutils iputils-ping locales \
+    diffutils xz-utils make file screen sudo wget time patch openssh-client curl vim-tiny \
+    iproute2 iputils-ping bzip2 \
+    uuid-runtime rsync strace sysstat \
+    python2 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /usr/share/man && \
+    rm -rf /usr/share/doc && \
+    rm -rf /usr/share/grub2 && \
+    rm -rf /usr/share/texmf/fonts && \
+    rm -rf /usr/share/texmf/doc && \
+    locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8
+
+# add user to sudoers after sudo is installed
+RUN useradd --home-dir /home/wrlbuild --uid 1000 --gid 100 --shell /bin/bash wrlbuild && \
+    echo "wrlbuild ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# download dumb-init after curl has been installed
+RUN curl -s -o /bin/dumb-init http://yow-mirror.wrs.com/mirror/dumb-init/dumb-init_1.2.0_amd64 && \
+    chmod +x /bin/dumb-init
+
+ENTRYPOINT ["/bin/dumb-init"]
+
+CMD ["/bin/bash"]
+
+USER wrlbuild
