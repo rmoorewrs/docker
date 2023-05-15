@@ -1,13 +1,3 @@
-FROM golang:1.19
-RUN \
-    apt-get update && \
-    apt-get install -y libgpgme-dev libassuan-dev libbtrfs-dev libdevmapper-dev pkg-config && \
-    git clone https://github.com/opencontainers/umoci.git /go/src/umoci && \
-    cd /go/src/umoci && make umoci.static && \
-    git clone https://github.com/containers/skopeo /go/src/skopeo && \
-    cd /go/src/skopeo && \
-    CGO_ENABLE=0 GO111MODULE=on GOOS=linux GOARCH=amd64 go build -mod=vendor '-buildmode=pie' -ldflags '-extldflags -static' -gcflags '' -tags 'exclude_graphdriver_devicemapper exclude_graphdriver_btrfs containers_image_openpgp' -o ./bin/skopeo-linux-amd64 ./cmd/skopeo
-
 FROM windriver/wrlx-image:full-x86-64-lts22-10.22.33.5
 
 RUN \
@@ -35,7 +25,6 @@ RUN \
     python3-pexpect \
     python3-pyyaml \
     rsync \
-    #skopeo \
     tini \
     util-linux-getopt \
     xz && \
@@ -51,14 +40,6 @@ RUN \
     chmod +x /usr/bin/mc && \
     rm -f /lib/depmod.d/exclude.conf && \
     useradd --home-dir /home/wrlbuild --uid 1000 --gid 100 --shell /bin/bash wrlbuild
-
-COPY --from=0 /go/src/umoci/umoci.static /usr/bin/umoci
-
-# Skopeo binary can be downloaded directly, but v1.10.0 has CVE-2022-39237, so not use it for now
-RUN wget --progress dot:giga https://github.com/lework/skopeo-binary/releases/download/v1.12.0/skopeo-linux-amd64 -O /usr/bin/skopeo && \
-    chmod 755 /usr/bin/skopeo && \
-    /usr/bin/skopeo --version
-COPY --from=0 /go/src/skopeo/bin/skopeo-linux-amd64 /usr/bin/skopeo
 
 ENTRYPOINT ["/usr/bin/docker-init"]
 
