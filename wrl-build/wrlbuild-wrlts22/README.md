@@ -1,4 +1,4 @@
-# wrlbuild-wrubi
+# wrlbuild-wrlts22
 
 This dockerfile is used to build an image capable of building Wind River Linux LTS, based on Wind River Linux UBI, LTS22
 
@@ -10,7 +10,7 @@ Build instructions:
 
 Enter the directory with the Dockerfile and run:
 ```
-docker build . -t wrlbuild-wrubi
+docker build . -t wrlbuild-wrlts22
 ```
 
 Recommended use:
@@ -18,11 +18,11 @@ Recommended use:
 - Create an alias in ~/.bash_aliases like this and source ~/.bash_aliases
 
 ```
-alias wrbuild-wrubi='docker run --rm -it --workdir $(pwd) -u wrlbuild -v $(pwd):$(pwd) wrlbuild-wrubi'
+alias wrbuild-wrlts22='docker run --rm -it --workdir $(pwd) -u wrlbuild -v $(pwd):$(pwd) wrlbuild-wrlts22'
 ```
 
 - Enter a directory above the level of your LTS mirror and your workspace
-- run `wrlbuild-wrubi`
+- run `wrlbuild-wrlts22`
 - proceed to build your WRL LTS/Yocto platform per normal use
 - exit the shell when you're done
 
