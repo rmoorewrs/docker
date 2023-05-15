@@ -1,4 +1,4 @@
-FROM golang:1.18
+FROM golang:1.19
 RUN \
     apt-get update && \
     apt-get install -y libgpgme-dev libassuan-dev libbtrfs-dev libdevmapper-dev pkg-config && \
@@ -55,9 +55,9 @@ RUN \
 COPY --from=0 /go/src/umoci/umoci.static /usr/bin/umoci
 
 # Skopeo binary can be downloaded directly, but v1.10.0 has CVE-2022-39237, so not use it for now
-#RUN wget --progress dot:giga https://github.com/lework/skopeo-binary/releases/download/v1.10.0/skopeo-linux-amd64 -O /usr/bin/skopeo && \
-#    chmod 755 /usr/bin/skopeo && \
-#    /usr/bin/skopeo --version
+RUN wget --progress dot:giga https://github.com/lework/skopeo-binary/releases/download/v1.12.0/skopeo-linux-amd64 -O /usr/bin/skopeo && \
+    chmod 755 /usr/bin/skopeo && \
+    /usr/bin/skopeo --version
 COPY --from=0 /go/src/skopeo/bin/skopeo-linux-amd64 /usr/bin/skopeo
 
 ENTRYPOINT ["/usr/bin/docker-init"]
