@@ -1,7 +1,5 @@
 FROM ubuntu:22.04
 
-MAINTAINER Changqing Li <changqing.li@windriver.com>
-
 RUN \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" -qy install --no-install-recommends \
