@@ -7,6 +7,6 @@ RUN apt-get update && apt-get install -y \
       rm -rf /tmp/* && \
       rm -rf /var/tmp/*
 
-RUN useradd -ms /bin/bash user
-USER user
-CMD xeyes
+RUN useradd -ms /bin/bash wruser
+USER wruser
+CMD xcalc
