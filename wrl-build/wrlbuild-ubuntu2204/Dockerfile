@@ -10,7 +10,7 @@ RUN \
     diffutils xz-utils make file screen sudo wget time patch openssh-client curl vim-tiny \
     iproute2 iputils-ping bzip2 \
     uuid-runtime rsync strace sysstat \
-    python2 && \
+    python2 \
     dumb-init && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
