@@ -11,6 +11,7 @@ RUN \
     iproute2 iputils-ping bzip2 \
     uuid-runtime rsync strace sysstat \
     python2 && \
+    dumb-init && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /usr/share/man && \
@@ -24,10 +25,6 @@ RUN \
 # add user to sudoers after sudo is installed
 RUN useradd --home-dir /home/wrlbuild --uid 1000 --gid 100 --shell /bin/bash wrlbuild && \
     echo "wrlbuild ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-# download dumb-init after curl has been installed
-RUN curl -s -o /bin/dumb-init http://yow-mirror.wrs.com/mirror/dumb-init/dumb-init_1.2.0_amd64 && \
-    chmod +x /bin/dumb-init
 
 ENTRYPOINT ["/bin/dumb-init"]
 
