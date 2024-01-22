@@ -10,7 +10,7 @@ Build instructions:
 
 Enter the directory with the Dockerfile and run:
 ```
-docker build -t wrlbuild-ubuntu1804 .
+docker build -t wrlbuild-ubuntu2204 .
 ```
 
 Recommended use:
