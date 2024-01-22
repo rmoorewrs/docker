@@ -20,7 +20,8 @@ RUN \
     rm -rf /usr/share/texmf/fonts && \
     rm -rf /usr/share/texmf/doc && \
     locale-gen en_US.UTF-8 && \
-    update-locale LANG=en_US.UTF-8
+    update-locale LANG=en_US.UTF-8 && \
+    ln -s /usr/bin/python2.7 /usr/bin/python
 
 # add user to sudoers after sudo is installed
 RUN useradd --home-dir /home/wrlbuild --uid 1000 --gid 100 --shell /bin/bash wrlbuild && \
