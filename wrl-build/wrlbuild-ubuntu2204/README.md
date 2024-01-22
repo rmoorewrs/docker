@@ -18,7 +18,7 @@ Recommended use:
 - Create an alias in ~/.bash_aliases like this and source ~/.bash_aliases
 
 ```
-alias wrbuild-ubuntu2204='docker run --rm -it --workdir $(pwd) -u wrlbuild -v $(pwd):$(pwd) wrlbuild-ubuntun2204'
+alias wrbuild-ubuntu2204='docker run --rm -it --workdir $(pwd) -u wrlbuild -v $(pwd):$(pwd) wrlbuild-ubuntu2204'
 ```
 
 - Enter a directory above the level of your LTS mirror and your workspace
