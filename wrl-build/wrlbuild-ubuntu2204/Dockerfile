@@ -26,7 +26,7 @@ RUN \
 RUN useradd --home-dir /home/wrlbuild --uid 1000 --gid 100 --shell /bin/bash wrlbuild && \
     echo "wrlbuild ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-ENTRYPOINT ["/bin/dumb-init"]
+ENTRYPOINT ["/usr/bin/dumb-init"]
 
 CMD ["/bin/bash"]
 
