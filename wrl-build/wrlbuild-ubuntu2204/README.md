@@ -10,7 +10,7 @@ Build instructions:
 
 Enter the directory with the Dockerfile and run:
 ```
-docker build -t wrlbuild-ubuntu2204 .
+docker build -t wrlbuild-ubuntu1804 .
 ```
 
 Recommended use:
@@ -18,7 +18,7 @@ Recommended use:
 - Create an alias in ~/.bash_aliases like this and source ~/.bash_aliases
 
 ```
-alias wrbuild-ubuntu2204='docker run --rm -it --workdir $(pwd) -u wrlbuild -v $(pwd):$(pwd) wrlbuild-ubuntu2204'
+alias wrbuild-ubuntu2204='docker run --rm -it --workdir $(pwd) -u wrlbuild -e LANG=en_US.UTF-8 -v $(pwd):$(pwd) wrlbuild-ubuntu2204'
 ```
 
 - Enter a directory above the level of your LTS mirror and your workspace
