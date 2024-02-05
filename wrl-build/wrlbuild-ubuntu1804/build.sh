@@ -1,1 +1,1 @@
-docker build . -t wrlbuild-ubuntu1804
+docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g) -f Dockerfile -t wrlbuild-ubuntu1804 .

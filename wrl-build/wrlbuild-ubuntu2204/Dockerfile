@@ -1,5 +1,9 @@
 FROM ubuntu:22.04
 
+ARG UNAME=wrlbuild
+ARG GID=1001
+ARG UID=1001
+
 RUN \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" -qy install --no-install-recommends \
@@ -23,8 +27,9 @@ RUN \
     update-locale LANG=en_US.UTF-8
 
 # add user to sudoers after sudo is installed
-RUN useradd --home-dir /home/wrlbuild --uid 1000 --gid 100 --shell /bin/bash wrlbuild && \
-    echo "wrlbuild ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN groupadd --gid $GID -o $UNAME
+RUN useradd --home-dir /home/$UNAME --uid $UID --gid $GID --shell /bin/bash $UNAME && \
+    echo "$UNAME ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 ENTRYPOINT ["/usr/bin/dumb-init"]
 
