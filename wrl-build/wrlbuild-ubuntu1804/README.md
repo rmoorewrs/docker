@@ -18,7 +18,7 @@ Recommended use:
 - Create an alias in ~/.bash_aliases like this and source ~/.bash_aliases
 
 ```
-alias wrbuild-ubuntu1804='docker run --rm -it --workdir $(pwd) -u wrlbuild -v $(pwd):$(pwd) wrlbuild-ubuntu1804'
+alias wrbuild-ubuntu1804='docker run --rm -it --workdir $(pwd) -u wrlbuild -e UID=$UID -e GID=$UID -e LANG=en_US.UTF-8 -v $(pwd):$(pwd) wrlbuild-ubuntu1804'
 ```
 
 - Enter a directory above the level of your LTS mirror and your workspace
