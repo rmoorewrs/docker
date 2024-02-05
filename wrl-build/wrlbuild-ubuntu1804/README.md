@@ -27,4 +27,4 @@ alias wrbuild-ubuntu1804='docker run --rm -it --workdir $(pwd) -u wrlbuild -e UI
 - exit the shell when you're done
 
 ### Caveat:
-This Dockerfile assumes your UID is 1000. If this is not the case, then change the UID in the Dockerfile to match your UID.
+This Dockerfile takes the  UID and GID of the builder, so each user needs to build it themselves or override the UID/GID in the alias/command line. i.e. by adding "-e UID=$(id -u) -e GID=$(id -g)"
