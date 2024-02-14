@@ -22,7 +22,7 @@ alias wrbuild-ubuntu1604='docker run --rm -it --workdir $(pwd) -u wrlbuild -e UI
 ```
 
 - Enter a directory above the level of your LTS mirror and your workspace
-- run `wrbuild-ubuntu1804` (after sourcing your alias file, e.g. `~/.bash_aliases`)
+- run `wrbuild-ubuntu1604` (after sourcing your alias file, e.g. `~/.bash_aliases`)
 - proceed to build your WRL LTS/Yocto platform per normal use
 - exit the shell when you're done
 
