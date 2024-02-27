@@ -51,8 +51,8 @@ wrlbuild() {
 - run `wrbuild` (after sourcing your alias or bashrc file)
 - proceed to build your WRL LTS/Yocto platform per normal use, for example:
 ```
-$ git clone --branch WRLINUX_9_LTS_CVE $WRL_MIRROR/wrlinux-9
-$ ./wrlinux-9/setup.sh --machines=qemux86-64 --distros=wrlinux --accept-eula=yes
+$ git clone --branch WRLINUX_10_19_LTS $WRL_MIRROR/wrlinux-x
+$ ./wrlinux-x/setup.sh --machines=qemux86-64 --distros=wrlinux --accept-eula=yes
 ```
 - exit the shell when you're done
 - invoke the shell whenever you need to build WR Linux
