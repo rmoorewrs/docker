@@ -1,30 +1,60 @@
 # wrlbuild-ubuntu2204
 
-This dockerfile is used to build an image capable of building Wind River Linux LTS, based on Ubuntu 22.04
+This dockerfile builds an image capable of building older versions of Wind River Linux LTS on newer Linux hosts, based on Ubuntu 22.04
 
 ## Requirements
-- you must have docker installed and be able to run it without root privelege. i.e. you should be a member of the 'docker' group
+You must have docker installed and be able to run it without root privelege. i.e. you should be a member of the 'docker' group and be able to run the following without `sudo`
+```
+$ docker run --rm hello-world
+```
+---
 
-
-Build instructions:
+## Build instructions:
 
 Enter the directory with the Dockerfile and run:
 ```
-docker build -t wrlbuild-ubuntu2204 .
+$ . ./build.sh
 ```
+---
 
-Recommended use:
+## Recommended use:
 
-- Create an alias in ~/.bash_aliases like this and source ~/.bash_aliases
+### Option 1: Create an alias in `~/.bash_aliases`
 
+Example:
 ```
-alias wrbuild-ubuntu2204='docker run --rm -it --workdir $(pwd) -u wrlbuild -e LANG=en_US.UTF-8 -v $(pwd):$(pwd) wrlbuild-ubuntu2204'
+alias wrlbuild='WRL_MIRROR=/path/to/mirror docker run --rm -it --workdir $(pwd) -u wrlbuild -e WRL_MIRROR=$WRL_MIRROR -e UID=$(id -u) -e GID=$(id -g) -e LANG=en_US.UTF-8 -v $WRL_MIRROR:$WRL_MIRROR -v $(pwd):$(pwd) wrlbuild-ubuntu2204'
 ```
+> Note: set WRL_MIRROR to the location of the local mirror for your version of WR Linux. Remember to source `~/.bash_aliases` the first time after adding alias.
 
-- Enter a directory above the level of your LTS mirror and your workspace
-- run `wrbuild-ubuntu2204`
-- proceed to build your WRL LTS/Yocto platform per normal use
+### Option 2: Create a bash function in `~/.bashrc`
+
+Example:
+```
+wrlbuild() {
+    WRL_MIRROR=/path/to/mirror   
+    docker run --rm -it \
+    -w $(pwd) -u wrlbuild \
+    -e WRL_MIRROR=${WRL_MIRROR} \
+    -e UID=1000 -e GID=1000 \
+    -e LANG=en_US.UTF-8 \
+    -v ${WRL_MIRROR}:${WRL_MIRROR} \
+    -v $(pwd):$(pwd) \
+    wrlbuild-ubuntu2204
+}
+```
+> Note: set WRL_MIRROR to the location of the local mirror for your version of WR Linux. Remember to source `~/.bashrc` the first time after adding function.
+
+---
+
+## How to use
+- run `wrbuild` (after sourcing your alias or bashrc file)
+- proceed to build your WRL LTS/Yocto platform per normal use, for example:
+```
+$ git clone --branch WRLINUX_9_LTS_CVE $WRL_MIRROR/wrlinux-9
+$ ./wrlinux-9/setup.sh --machines=qemux86-64 --distros=wrlinux --accept-eula=yes
+```
 - exit the shell when you're done
+- invoke the shell whenever you need to build WR Linux
 
-### Caveat:
-This Dockerfile assumes your UID is 1000. If this is not the case, then change the UID in the Dockerfile to match your UID.
+
