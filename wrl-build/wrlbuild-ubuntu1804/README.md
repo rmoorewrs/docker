@@ -21,9 +21,12 @@ $ . ./build.sh
 
 ### Option 1: Create an alias in `~/.bash_aliases`
 
-Example:
+Examples:
 ```
-alias wrlbuild='WRL_MIRROR=/path/to/mirror docker run --rm -it --workdir $(pwd) -u wrlbuild -e WRL_MIRROR=$WRL_MIRROR -e UID=$(id -u) -e GID=$(id -g) -e LANG=en_US.UTF-8 -v $WRL_MIRROR:$WRL_MIRROR -v $(pwd):$(pwd) wrlbuild-ubuntu1804'
+alias wrlbuild='export WRL_MIRROR=/path/to/mirror; docker run --rm -it --workdir $(pwd) -u wrlbuild -e WRL_MIRROR=$WRL_MIRROR -e UID=$(id -u) -e GID=$(id -g) -e LANG=en_US.UTF-8 -v $WRL_MIRROR:$WRL_MIRROR -v $(pwd):$(pwd) wrlbuild-ubuntu1804'
+
+alias lts18shell='export WRL_MIRROR=/path/to/LTS18_mirror; docker run --rm -it --workdir $(pwd) -u wrlbuild -e WRL_MIRROR=$WRL_MIRROR -e UID=$(id -u) -e GID=$(id -g) -e LANG=en_US.UTF-8 -v $WRL_MIRROR:$WRL_MIRROR -v $(pwd):$(pwd) wrlbuild-ubuntu1804'
+alias lts19shell='export WRL_MIRROR=/path/to/LTS19_mirror; docker run --rm -it --workdir $(pwd) -u wrlbuild -e WRL_MIRROR=$WRL_MIRROR -e UID=$(id -u) -e GID=$(id -g) -e LANG=en_US.UTF-8 -v $WRL_MIRROR:$WRL_MIRROR -v $(pwd):$(pwd) wrlbuild-ubuntu1804'
 ```
 > Note: set WRL_MIRROR to the location of the local mirror for your version of WR Linux. Remember to source `~/.bash_aliases` the first time after adding alias.
 
