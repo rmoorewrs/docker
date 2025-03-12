@@ -23,8 +23,6 @@ $ . ./build.sh
 
 Examples:
 ```
-alias wrlbuild='export WRL_MIRROR=/path/to/mirror; docker run --rm -it --workdir $(pwd) -u wrlbuild -e WRL_MIRROR=$WRL_MIRROR -e UID=$(id -u) -e GID=$(id -g) -e LANG=en_US.UTF-8 -v $WRL_MIRROR:$WRL_MIRROR -v $(pwd):$(pwd) wrlbuild-ubuntu1804'
-
 alias lts18shell='export WRL_MIRROR=/path/to/LTS18_mirror; docker run --rm -it --workdir $(pwd) -u wrlbuild -e WRL_MIRROR=$WRL_MIRROR -e UID=$(id -u) -e GID=$(id -g) -e LANG=en_US.UTF-8 -v $WRL_MIRROR:$WRL_MIRROR -v $(pwd):$(pwd) wrlbuild-ubuntu1804'
 alias lts19shell='export WRL_MIRROR=/path/to/LTS19_mirror; docker run --rm -it --workdir $(pwd) -u wrlbuild -e WRL_MIRROR=$WRL_MIRROR -e UID=$(id -u) -e GID=$(id -g) -e LANG=en_US.UTF-8 -v $WRL_MIRROR:$WRL_MIRROR -v $(pwd):$(pwd) wrlbuild-ubuntu1804'
 ```
@@ -34,8 +32,8 @@ alias lts19shell='export WRL_MIRROR=/path/to/LTS19_mirror; docker run --rm -it -
 
 Example:
 ```
-wrlbuild() {
-    WRL_MIRROR=/path/to/mirror   
+lts18shell() {
+    export WRL_MIRROR=/path/to/LTS18mirror;   
     docker run --rm -it \
     -w $(pwd) -u wrlbuild \
     -e WRL_MIRROR=${WRL_MIRROR} \
@@ -46,18 +44,21 @@ wrlbuild() {
     wrlbuild-ubuntu1804
 }
 ```
-> Note: set WRL_MIRROR to the location of the local mirror for your version of WR Linux. Remember to source `~/.bashrc` the first time after adding function.
+> Note: set WRL_MIRROR to the location of the local mirror for your version of WR Linux, or do it inside of the alias or function. Remember to source `~/.bashrc` the first time after adding function.
 
 ---
 
 ## How to use
-- run `wrbuild` (after sourcing your alias or bashrc file)
+- run `lts18shell` (for example)
 - proceed to build your WRL LTS/Yocto platform per normal use, for example:
 ```
-$ git clone --branch WRLINUX_10_19_LTS $WRL_MIRROR/wrlinux-x
+$ git clone --branch WRLINUX_10_18_LTS $WRL_MIRROR/wrlinux-x
 $ ./wrlinux-x/setup.sh --machines=qemux86-64 --distros=wrlinux --accept-eula=yes
 ```
 - exit the shell when you're done
 - invoke the shell whenever you need to build WR Linux
 
+
+## Limitations
+- can't execute `runqemu` due to lack of `tun` mapping into the container
 
