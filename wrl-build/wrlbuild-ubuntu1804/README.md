@@ -37,7 +37,7 @@ alias lts18tun='export WRL_MIRROR=/opt/wr/wrl/lts18/mirror; docker run --rm -it 
 
 ```
 
-Next, in order to start a qemu build, do something like this:
+Next, in order to launch the qemu image you just built, do something like this:
 ```
 runqemu qemuarma9 slirp nographic qemuparams="-m 1024 -netdev user,id=mynet0,net=10.10.11.0/24,dhcpstart=10.10.11.200"
 
