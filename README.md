@@ -1,2 +1,2 @@
 # docker
-These are my docker files
+These are some example docker files
