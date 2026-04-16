@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM elxrlinux/elxr:12.12.0.0
 
 RUN apt-get update && apt-get install -y \
       x11-apps \
